@@ -20,18 +20,18 @@ const App = () => {
     };
 
     fetchData(); // Fetch data on component mount or when `update` changes
-  }, [update]); // Dependency array includes `update` to refetch data when `update` changes
+  }, [update]); 
 
   const saveTodo = async () => {
-    if (input.trim() === '') return; // Prevent adding empty to-dos
+    if (input.trim() === '') return; 
 
     try {
       const response = await axios.post('http://localhost:8080/api/save', { toDo: input });
-      setToDos([...todos, response.data]); // Add the new to-do to the list
-      setInput(''); // Clear input field after adding
-      setUpdate((prevState) => !prevState); // Toggle `update` to trigger re-fetch
+      setToDos([...todos, response.data]); 
+      setInput(''); 
+      setUpdate((prevState) => !prevState); 
     } catch (error) {
-      console.error('Error adding to-do:', error); // Log errors
+      console.error('Error adding to-do:', error); 
     }
   };
 
