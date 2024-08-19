@@ -6,30 +6,30 @@ import ToDo from './components/ToDo';
 const App = () => {
   const [todos, setToDos] = useState([]); // Initialize state for to-dos
   const [input, setInput] = useState(''); // State for the input field
+  const [update, setUpdate] = useState(false); // State to trigger updates
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:8080/api/get');
-       console.log(response.data)
+        console.log(response.data); // Log the fetched data
         setToDos(response.data); // Update state with fetched to-dos
       } catch (error) {
         console.error('Error fetching data:', error); // Log errors
       }
     };
 
-    fetchData(); // Fetch data on component mount
-  }, []); // Empty dependency array ensures this runs only on component mount
+    fetchData(); // Fetch data on component mount or when `update` changes
+  }, [update]); // Dependency array includes `update` to refetch data when `update` changes
 
   const saveTodo = async () => {
     if (input.trim() === '') return; // Prevent adding empty to-dos
 
     try {
-      await axios.post('http://localhost:8080/api/save', { toDo: input }); // Correct API endpoint for adding to-do
-      setToDos([...todos, { toDo: input }]); // Update local state with the new to-do
+      const response = await axios.post('http://localhost:8080/api/save', { toDo: input });
+      setToDos([...todos, response.data]); // Add the new to-do to the list
       setInput(''); // Clear input field after adding
-
-      console.log(response.data)
+      setUpdate((prevState) => !prevState); // Toggle `update` to trigger re-fetch
     } catch (error) {
       console.error('Error adding to-do:', error); // Log errors
     }
@@ -49,8 +49,8 @@ const App = () => {
       </div>
 
       <div className='todo-list'>
-        {todos.map((todo, index) => (
-          <ToDo key={index} text={todo.toDo} />// Render ToDo components with the text prop
+        {todos.map((todo) => (
+          <ToDo key={todo._id} text={todo.toDo} id={todo._id} setUpdate={setUpdate} />
         ))}
       </div>
     </div>
