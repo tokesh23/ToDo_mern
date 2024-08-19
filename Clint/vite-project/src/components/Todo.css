@@ -1,0 +1,17 @@
+.icon-container{
+
+    border: 1px solid black;
+    height: 32px;
+    width: 250px;
+    padding-top: 5px;
+    padding-left: 5px;
+    background-color: slategrey;
+    
+}
+ 
+.icon{
+     position: relative;
+     left: 200px;
+     bottom: 15px;
+     
+}

@@ -1,0 +1,12 @@
+ .Todo-import{
+
+    margin-top: 20px;
+    gap: 33px;
+    color: firebrick;
+    display: flex;
+        gap: 20px;
+        flex-direction: column;
+   
+         
+
+ }
