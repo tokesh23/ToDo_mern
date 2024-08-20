@@ -6,7 +6,7 @@ const routes = require("./routes/Todoroutes");
 
 dotenv.config(); // Load environment variables from .env file
 
-const PORT = process.env.PORT || 8080; // Fallback to 8080 if not set
+const PORT = process.env.PORT  // Fallback to 8080 if not set
 const MONGO_URI = process.env.MONGO_URI; // Get MongoDB URI from .env
 
 const app = express();
